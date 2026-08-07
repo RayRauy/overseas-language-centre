@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0001-create-role-table
+      author: hout
+      changes:
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+              - column:
+                  name: description
+                  type: VARCHAR(100)
+              - column:
+                  name: createdAt
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: createdBy
+                  type: BIGINT
+              - column:
+                  name: updatedAt
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updatedBy
+                  type: BIGINT
+              - column:
+                  name: deletedAt
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: deletedBy
+                  type: BIGINT

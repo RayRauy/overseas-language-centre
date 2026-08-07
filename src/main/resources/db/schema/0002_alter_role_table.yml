@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0002-alter-role-table
+      author: hout
+      changes:
+        - addUniqueConstraint:
+            tableName: role
+            columnNames: name
+            constraintName: uk_role_name
