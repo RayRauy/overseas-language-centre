@@ -22,7 +22,7 @@ public final class PageUtil {
     }
 
     public static final int DEFAULT_PAGE = 0;
-    public static final int DEFAULT_SIZE = 20;
+    public static final int DEFAULT_SIZE = 10;
     public static final int MAX_SIZE = 30;
 
     public static Sort sort(PageSortFilter filter,

@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.util;
+package com.school_management.overseas_language_centre.component;
 
 import org.springframework.stereotype.Component;
 

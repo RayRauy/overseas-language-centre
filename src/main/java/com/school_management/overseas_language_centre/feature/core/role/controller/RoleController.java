@@ -1,13 +1,13 @@
-package com.school_management.overseas_language_centre.controller;
+package com.school_management.overseas_language_centre.feature.core.role.controller;
 
 import com.school_management.overseas_language_centre.base.BaseApi;
 import com.school_management.overseas_language_centre.base.BaseApiPagination;
 import com.school_management.overseas_language_centre.dto.apiresponses.SuccessResponse;
-import com.school_management.overseas_language_centre.dto.filter.RoleFilter;
+import com.school_management.overseas_language_centre.feature.core.role.dto.filter.RoleFilter;
 import com.school_management.overseas_language_centre.dto.pagination.PageDTO;
-import com.school_management.overseas_language_centre.dto.request.RoleRequest;
-import com.school_management.overseas_language_centre.dto.response.RoleResponse;
-import com.school_management.overseas_language_centre.service.RoleService;
+import com.school_management.overseas_language_centre.feature.core.role.dto.request.RoleRequest;
+import com.school_management.overseas_language_centre.feature.core.role.dto.response.RoleResponse;
+import com.school_management.overseas_language_centre.feature.core.role.service.RoleService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -22,12 +22,12 @@ import java.util.List;
 public class RoleController {
     private final RoleService roleService;
 
-    RoleController (RoleService roleService){
+    RoleController(RoleService roleService) {
         this.roleService = roleService;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BaseApi<RoleResponse>> getById(@PathVariable Long id){
+    public ResponseEntity<BaseApi<RoleResponse>> getById(@PathVariable Long id) {
 
         RoleResponse role = roleService.getById(id);
 
@@ -39,24 +39,19 @@ public class RoleController {
                         .timestamp(LocalDateTime.now())
                         .data(role)
                         .build()
-                );
-    }
-
-    @GetMapping("/getAll")
-    public ResponseEntity<SuccessResponse<List<RoleResponse>>> getAll(@ModelAttribute RoleFilter name){
-
-        List<RoleResponse> role = roleService.getAll(name);
-
-        return ResponseEntity.ok(
-                SuccessResponse.success(
-                        "Successfully Retrieved Roles",
-                        role
-                )
         );
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<SuccessResponse<List<RoleResponse>>> getAll(@ModelAttribute RoleFilter name) {
+
+        List<RoleResponse> role = roleService.getAll(name);
+
+        return ResponseEntity.ok(SuccessResponse.success("Successfully Retrieved Roles",role));
+    }
+
     @PostMapping("/create")
-    public ResponseEntity<SuccessResponse<RoleResponse>> create(@Valid @RequestBody RoleRequest request){
+    public ResponseEntity<SuccessResponse<RoleResponse>> create(@Valid @RequestBody RoleRequest request) {
 
         RoleResponse role = roleService.create(request);
 
@@ -64,7 +59,7 @@ public class RoleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SuccessResponse<RoleResponse>> updateById(@Valid @PathVariable Long id, @RequestBody RoleRequest request){
+    public ResponseEntity<SuccessResponse<RoleResponse>> updateById(@Valid @PathVariable Long id, @RequestBody RoleRequest request) {
 
         RoleResponse role = roleService.updateById(id, request);
 
@@ -72,7 +67,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<SuccessResponse<RoleResponse>> deleteById(@PathVariable Long id){
+    public ResponseEntity<SuccessResponse<RoleResponse>> deleteById(@PathVariable Long id) {
 
         roleService.deleteById(id);
 
@@ -80,7 +75,7 @@ public class RoleController {
     }
 
     @GetMapping("/pagination")
-    public ResponseEntity<?> getAllPagination(RoleFilter filter){
+    public ResponseEntity<?> getAllPagination(RoleFilter filter) {
         Page<RoleResponse> allPagination = roleService.getAllPagination(filter);
         PageDTO pageDTO = new PageDTO(allPagination);
         return ResponseEntity.ok(

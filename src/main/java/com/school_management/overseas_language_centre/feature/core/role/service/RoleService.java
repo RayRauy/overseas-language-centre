@@ -1,10 +1,9 @@
-package com.school_management.overseas_language_centre.service;
+package com.school_management.overseas_language_centre.feature.core.role.service;
 
-import com.school_management.overseas_language_centre.dto.filter.RoleFilter;
-import com.school_management.overseas_language_centre.dto.request.RoleRequest;
-import com.school_management.overseas_language_centre.dto.response.RoleResponse;
+import com.school_management.overseas_language_centre.feature.core.role.dto.filter.RoleFilter;
+import com.school_management.overseas_language_centre.feature.core.role.dto.request.RoleRequest;
+import com.school_management.overseas_language_centre.feature.core.role.dto.response.RoleResponse;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 

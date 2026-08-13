@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.dto.request;
+package com.school_management.overseas_language_centre.feature.core.role.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

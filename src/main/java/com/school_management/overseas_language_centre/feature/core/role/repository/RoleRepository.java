@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.repository;
+package com.school_management.overseas_language_centre.feature.core.role.repository;
 
 import com.school_management.overseas_language_centre.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +13,9 @@ public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificat
     List<Role> findByNameContaining(String name);
     List<Role> findByNameContainingIgnoreCase(String name);
     boolean existsByNameIgnoreCase(String name);
+    boolean existsByDescriptionIgnoreCase(String description);
+    boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
+    boolean existsByDescriptionIgnoreCaseAndIdNot(String description, Long id);
+    boolean existsById(Long id);
+
 }

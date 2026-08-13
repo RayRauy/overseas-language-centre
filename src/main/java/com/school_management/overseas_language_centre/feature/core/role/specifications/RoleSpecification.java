@@ -1,6 +1,6 @@
-package com.school_management.overseas_language_centre.specifications;
+package com.school_management.overseas_language_centre.feature.core.role.specifications;
 
-import com.school_management.overseas_language_centre.dto.filter.RoleFilter;
+import com.school_management.overseas_language_centre.feature.core.role.dto.filter.RoleFilter;
 import com.school_management.overseas_language_centre.entity.Role;
 import com.school_management.overseas_language_centre.util.PageUtil;
 import org.springframework.data.domain.Pageable;
