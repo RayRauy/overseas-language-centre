@@ -20,23 +20,21 @@ databaseChangeLog:
                   name: description
                   type: VARCHAR(100)
               - column:
-                  name: createdAt
+                  name: created_at
                   type: TIMESTAMP
                   defaultValueComputed: CURRENT_TIMESTAMP
               - column:
-                  name: createdBy
+                  name: created_by
                   type: BIGINT
               - column:
-                  name: updatedAt
+                  name: updated_at
                   type: TIMESTAMP
-                  defaultValueComputed: CURRENT_TIMESTAMP
               - column:
-                  name: updatedBy
+                  name: updated_by
                   type: BIGINT
               - column:
-                  name: deletedAt
+                  name: deleted_at
                   type: TIMESTAMP
-                  defaultValueComputed: CURRENT_TIMESTAMP
               - column:
-                  name: deletedBy
+                  name: deleted_by
                   type: BIGINT

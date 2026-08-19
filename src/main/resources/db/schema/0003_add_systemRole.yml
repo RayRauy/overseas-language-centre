@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0003-add-systemRole
+      author: hout
+      changes:
+        - addColumn:
+            tableName: role
+            columns:
+              - column:
+                  name: system_role
+                  type: boolean
+                  valueBoolean: false
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

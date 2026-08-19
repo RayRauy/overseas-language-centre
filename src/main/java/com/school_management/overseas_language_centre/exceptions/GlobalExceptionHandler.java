@@ -68,4 +68,16 @@ public class GlobalExceptionHandler {
                         )
                 );
     }
+
+    @ExceptionHandler(SystemRoleException.class)
+    public ResponseEntity<BaseError> handleSystemRoleException(SystemRoleException ex) {
+        BaseError error = BaseError.of(
+                HttpStatus.FORBIDDEN.value(),
+                "Forbidden",
+                ex.getMessage());
+
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(error);
+    }
 }

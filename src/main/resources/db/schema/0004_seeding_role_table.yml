@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0004-seeding-role-table
+      author: hout
+      changes:
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: SUPER_ADMIN
+              - column:
+                  name: description
+                  value: "Super Admin role"
+              - column:
+                  name: system_role
+                  valueBoolean: true
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: ADMIN
+              - column:
+                  name: description
+                  value: "Admin role"
+              - column:
+                  name: system_role
+                  valueBoolean: true
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: OWNER
+              - column:
+                  name: description
+                  value: "Owner role"
+              - column:
+                  name: system_role
+                  valueBoolean: true
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: CASHIER
+              - column:
+                  name: description
+                  value: "Cashier role"
+              - column:
+                  name: system_role
+                  valueBoolean: true

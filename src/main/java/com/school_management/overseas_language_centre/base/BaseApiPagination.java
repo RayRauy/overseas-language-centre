@@ -5,6 +5,7 @@ import com.school_management.overseas_language_centre.dto.pagination.PaginationD
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,5 +23,9 @@ public class BaseApiPagination<T> {
 
     private PaginationDTO pagination;
 
-    private List<T> data;
+    private T data;
+
+    public static <T> BaseApiPagination<T> success(String message, PaginationDTO pagination, T data){
+        return new BaseApiPagination<>(true, HttpStatus.OK.value(), message, LocalDateTime.now(), pagination, data);
+    }
 }

@@ -9,7 +9,10 @@ import com.school_management.overseas_language_centre.feature.core.role.dto.requ
 import com.school_management.overseas_language_centre.feature.core.role.dto.response.RoleImportResult;
 import com.school_management.overseas_language_centre.feature.core.role.dto.response.RoleResponse;
 import com.school_management.overseas_language_centre.feature.core.role.service.RoleService;
+import com.school_management.overseas_language_centre.feature.exports.excel.role.ExportRoleExcelService;
+import com.school_management.overseas_language_centre.feature.imports.excel.role.ImportRoleExcelService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,14 +26,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/role")
+@RequiredArgsConstructor
 public class RoleController {
     private final RoleService roleService;
+    private final ImportRoleExcelService importRoleExcelService;
+    private final ExportRoleExcelService exportRoleExcelService;
 
-    RoleController(RoleService roleService) {
-        this.roleService = roleService;
-    }
-
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<BaseApi<RoleResponse>> getById(@PathVariable Long id) {
 
         RoleResponse role = roleService.getById(id);
@@ -46,15 +48,15 @@ public class RoleController {
         );
     }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<SuccessResponse<List<RoleResponse>>> getAll(@ModelAttribute RoleFilter name) {
+    @GetMapping("getAll")
+    public ResponseEntity<BaseApi<List<RoleResponse>>> getAll(@ModelAttribute RoleFilter name) {
 
         List<RoleResponse> role = roleService.getAll(name);
 
-        return ResponseEntity.ok(SuccessResponse.success("Successfully Retrieved Roles",role));
+        return ResponseEntity.ok(BaseApi.success("Role Successfully Retrieved", role));
     }
 
-    @PostMapping("/create")
+    @PostMapping("create")
     public ResponseEntity<SuccessResponse<RoleResponse>> create(@Valid @RequestBody RoleRequest request) {
 
         RoleResponse role = roleService.create(request);
@@ -62,7 +64,7 @@ public class RoleController {
         return ResponseEntity.ok(SuccessResponse.success("Role Created Successfully", role));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<SuccessResponse<RoleResponse>> updateById(@Valid @PathVariable Long id, @RequestBody RoleRequest request) {
 
         RoleResponse role = roleService.updateById(id, request);
@@ -70,7 +72,7 @@ public class RoleController {
         return ResponseEntity.ok(SuccessResponse.success("Roles Updated Successfully", role));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<SuccessResponse<RoleResponse>> deleteById(@PathVariable Long id) {
 
         roleService.deleteById(id);
@@ -78,30 +80,22 @@ public class RoleController {
         return ResponseEntity.ok(SuccessResponse.success("Roles Deleted Successfully", null));
     }
 
-    @GetMapping("/pagination")
-    public ResponseEntity<?> getAllPagination(RoleFilter filter) {
+    @GetMapping("pagination")
+    public ResponseEntity<BaseApiPagination<List<RoleResponse>>> getAllPagination(RoleFilter filter) {
         Page<RoleResponse> allPagination = roleService.getAllPagination(filter);
-        PageDTO pageDTO = new PageDTO(allPagination);
-        return ResponseEntity.ok(
-                BaseApiPagination.<RoleResponse>builder()
-                        .status(true)
-                        .code(HttpStatus.OK.value())
-                        .message("Success")
-                        .timestamp(LocalDateTime.now())
-                        .pagination(pageDTO.getPagination())
-                        .data((List<RoleResponse>) pageDTO.getItems())
-                        .build()
+        PageDTO<RoleResponse> pageDTO = new PageDTO<>(allPagination);
+        return ResponseEntity.ok(BaseApiPagination.success("Get pagination Success", pageDTO.getPagination(), pageDTO.getItems())
         );
     }
 
     @PostMapping(value = "import-xlsx", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<RoleImportResult> importXSLX(@RequestParam("file") MultipartFile file){
-        return ResponseEntity.ok(roleService.importFromXlsx(file));
+        return ResponseEntity.ok(importRoleExcelService.importFromXlsx(file));
     }
 
     @GetMapping(value = "export-xlsx", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<byte[]> exportXLSX() {
-        byte[] file = roleService.exportToXlsx();
+        byte[] file = exportRoleExcelService.exportToXlsx();
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=roles.xlsx")
                 .contentType(

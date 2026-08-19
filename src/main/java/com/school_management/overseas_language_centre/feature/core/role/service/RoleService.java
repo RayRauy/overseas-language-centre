@@ -13,8 +13,6 @@ public interface RoleService {
     RoleResponse getById(Long id);
     List<RoleResponse> getAll(RoleFilter filter);
     Page<RoleResponse> getAllPagination(RoleFilter filter);
-    RoleImportResult importFromXlsx(MultipartFile file);
-    byte[] exportToXlsx();
     RoleResponse create(RoleRequest request);
     RoleResponse updateById(Long id, RoleRequest request);
     void deleteById(Long id);

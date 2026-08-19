@@ -47,7 +47,7 @@ public class RoleValidator{
 
     private void validateRoleExists(Long id){
         if (!roleRepository.existsById(id)){
-            throw new ResourceNotFoundException("Role not exists: " + id);
+            throw new ResourceNotFoundException("Role", id);
         }
     }
 }

@@ -3,3 +3,7 @@ databaseChangeLog:
       file: db/schema/0001_create_role_table.yml
   - include:
       file: db/schema/0002_alter_role_table.yml
+  - include:
+      file: db/schema/0003_add_systemRole.yml
+  - include:
+      file: db/schema/0004_seeding_role_table.yml

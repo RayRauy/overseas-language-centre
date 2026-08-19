@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 // lombok
 @Data
 @NoArgsConstructor
-public class PageDTO {
+public class PageDTO<T> {
 
-    private List<?> items;
+    private List<T> items;
     private PaginationDTO pagination;
 
-    public PageDTO(Page<?> page) {
+    public PageDTO(Page<T> page) {
         this.items = page.getContent();
 
         int pageSize;

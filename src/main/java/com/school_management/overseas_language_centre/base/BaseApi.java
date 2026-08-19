@@ -1,9 +1,11 @@
 package com.school_management.overseas_language_centre.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.school_management.overseas_language_centre.dto.apiresponses.SuccessResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
@@ -17,4 +19,8 @@ public class BaseApi<T> {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp;
     private T data;
+
+    public static <T> BaseApi<T> success(String message, T data){
+        return new BaseApi<>(true, HttpStatus.OK.value(), message, LocalDateTime.now(), data);
+    }
 }
