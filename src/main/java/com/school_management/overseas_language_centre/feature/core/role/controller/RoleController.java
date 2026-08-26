@@ -11,6 +11,7 @@ import com.school_management.overseas_language_centre.feature.core.role.dto.resp
 import com.school_management.overseas_language_centre.feature.core.role.service.RoleService;
 import com.school_management.overseas_language_centre.feature.exports.excel.role.ExportRoleExcelService;
 import com.school_management.overseas_language_centre.feature.imports.excel.role.ImportRoleExcelService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +28,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/role")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class RoleController {
     private final RoleService roleService;
@@ -48,7 +51,8 @@ public class RoleController {
         );
     }
 
-    @GetMapping("getAll")
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("")
     public ResponseEntity<BaseApi<List<RoleResponse>>> getAll(@ModelAttribute RoleFilter name) {
 
         List<RoleResponse> role = roleService.getAll(name);

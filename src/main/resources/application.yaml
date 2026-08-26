@@ -19,3 +19,6 @@ spring:
   liquibase:
     change-log: db/changelog/db.changelog-master.yaml
     enabled: true
+jwt:
+  secret: ${JWT_SECRET:change-me-to-a-long-random-secret-at-least-32-bytes-please}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}

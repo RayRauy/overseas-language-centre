@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0001-create-user-table
+      author: hout
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(100)
+              - column:
+                  name: nickname
+                  type: VARCHAR(100)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  name: enabled
+                  type: BOOLEAN
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: BIGINT
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: updated_by
+                  type: BIGINT
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMP
+              - column:
+                  name: deleted_by
+                  type: BIGINT

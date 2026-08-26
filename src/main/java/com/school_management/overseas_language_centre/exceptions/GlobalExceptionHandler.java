@@ -1,7 +1,7 @@
 package com.school_management.overseas_language_centre.exceptions;
 
 import com.school_management.overseas_language_centre.base.BaseError;
-import com.school_management.overseas_language_centre.dto.apiresponses.ErrorResponse;
+import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -80,4 +80,15 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.FORBIDDEN)
                 .body(error);
     }
+
+//    @ExceptionHandler(ValidationException.class)
+//    public ResponseEntity<BaseError> handleValidationException(ValidationException ex) {
+//        BaseError error = BaseError.of(
+//                HttpStatus.BAD_REQUEST.value(),
+//                "Validation failed",
+//                ex.getMessage());
+//        return ResponseEntity
+//                .badRequest()
+//                .body(error);
+//    }
 }
