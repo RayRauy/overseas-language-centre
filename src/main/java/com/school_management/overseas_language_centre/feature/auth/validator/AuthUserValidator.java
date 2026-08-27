@@ -1,4 +1,3 @@
-
 package com.school_management.overseas_language_centre.feature.auth.validator;
 
 import com.school_management.overseas_language_centre.entity.User;
@@ -32,7 +31,6 @@ public class AuthUserValidator {
         if (!passwordEncoder.matches(rawPassword, user.getPassword())){
             throw new ValidationException("Invalid credentials");
         }
-
         return user;
     }
 }

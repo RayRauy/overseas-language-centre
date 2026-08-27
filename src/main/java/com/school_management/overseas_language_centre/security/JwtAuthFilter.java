@@ -1,7 +1,10 @@
 package com.school_management.overseas_language_centre.security;
 
+import com.school_management.overseas_language_centre.entity.User;
 import com.school_management.overseas_language_centre.feature.core.user.detail.UserDetails;
+import com.school_management.overseas_language_centre.feature.core.user.repository.UserRepository;
 import com.school_management.overseas_language_centre.feature.core.user.service.impl.UserDetailServiceImpl;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,11 +29,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private static final String BEARER_PREFIX = "Bearer ";
     private final UserDetailServiceImpl userDetailsService;
     private final JwtService jwtService;
+    private final UserRepository userRepository;
+    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        //eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4NGUzMTRhMy00YTNiLTQ1ODktYTFhZi00ZTA2NjJiY2U2NzUiLCJpYXQiOjE3ODc2NzA3MTgsImV4cCI6MTc4Nzc1NzExOH0.IxGVEyPIfRNLfMOF1kIv5UFm1JFVUCi4-HxJ0eGaiX8Y5X70Zozp-iti3yCtbtl68YdrRqkrwPt8XAbB6TgQpw
         System.out.println("Request");
         System.out.println(request);
         String token = resolveToken(request);
@@ -40,7 +45,24 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
             return;
         }
+        Claims claims = jwtService.getClaimsFromToken(token);
         String username = jwtService.getUsernameFromToken(token);
+        String jti = jwtService.getJtiFromToken(token);
+
+        User user = userRepository.findByUsername(username)
+                .orElse(null);
+
+        if (user == null || !jti.equals(user.getActiveTokenId())) {
+            SecurityContextHolder.clearContext();
+
+            restAuthenticationEntryPoint.commence(
+                    request,
+                    response,
+                    new BadCredentialsException("Token has been revoked")
+            );
+            return;
+        }
+
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authentication =
