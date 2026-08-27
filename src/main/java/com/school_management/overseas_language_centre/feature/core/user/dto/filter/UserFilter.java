@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.feature.core.role.dto.filter;
+package com.school_management.overseas_language_centre.feature.core.user.dto.filter;
 
 import com.school_management.overseas_language_centre.dto.filter.BaseFilter;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleFilter extends BaseFilter {
+public class UserFilter extends BaseFilter {
         String name;
-        String description;
+        String nickname;
 }

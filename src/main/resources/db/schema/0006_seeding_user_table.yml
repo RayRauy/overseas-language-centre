@@ -1,0 +1,15 @@
+
+databaseChangeLog:
+  - changeSet:
+      id: 0004-seeding-user-table
+      author: hout
+
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: username, value: "hout@gmail.com" }
+              - column: { name: nickname, value: "SuperAdmin" }
+              - column: { name: password, value: "$2a$12$Oqgfv8yEzncJ0SOs6VcW3ur9ltJ.UfDNOnQ.sgM7fyUaDnynNfRYe" }
+              - column: { name: enabled, valueBoolean: true }

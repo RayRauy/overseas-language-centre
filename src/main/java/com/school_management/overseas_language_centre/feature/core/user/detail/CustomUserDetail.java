@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class CustomUserDetail implements UserDetails{
@@ -13,12 +15,27 @@ public class CustomUserDetail implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles()
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        // Role authorities
+        authorities.addAll(user.getRoles()
                 .stream()
                 .map(role -> new
                         SimpleGrantedAuthority("ROLE_"+ role.getName())
                 )
-                .toList();
+                .toList()
+        );
+
+        // Permission authorities
+        authorities.addAll(user.getRoles()
+                .stream()
+                .flatMap(role -> role.getPermissions().stream())
+                .map(permission -> new
+                        SimpleGrantedAuthority(permission.getName())
+                )
+                .toList()
+        );
+        return authorities;
     }
 
     @Override

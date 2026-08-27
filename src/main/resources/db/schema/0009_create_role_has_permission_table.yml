@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-create-role-has-permission-table
+      author: hout
+      changes:
+        - createTable:
+            tableName: role_has_permission
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_role_permission_id
+                    references: role(id)
+              - column:
+                  name: permission_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_permission_role_id
+                    references: permission(id)
+
