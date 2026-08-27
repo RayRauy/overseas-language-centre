@@ -60,6 +60,7 @@ public class RoleController {
         return ResponseEntity.ok(BaseApi.success("Role Successfully Retrieved", role));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_CREATE')")
     @PostMapping("create")
     public ResponseEntity<SuccessResponse<RoleResponse>> create(@Valid @RequestBody RoleRequest request) {
 

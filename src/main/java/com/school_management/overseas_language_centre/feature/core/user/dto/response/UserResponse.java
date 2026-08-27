@@ -12,4 +12,5 @@ public class UserResponse {
     private String username;
     private String nickname;
     private boolean enabled;
+    private String activeTokenId;
 }

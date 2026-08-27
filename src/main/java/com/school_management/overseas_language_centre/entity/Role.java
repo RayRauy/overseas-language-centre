@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "role")
@@ -19,4 +20,12 @@ public class Role {
 
     @Column(nullable = false)
     private boolean systemRole;
+
+    @ManyToMany
+    @JoinTable(
+            name = "role_has_permission",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private Set<Permission> permissions;
 }
