@@ -26,6 +26,9 @@ databaseChangeLog:
                   name: enabled
                   type: BOOLEAN
               - column:
+                  name: active_token_id
+                  type: VARCHAR(255)
+              - column:
                   name: created_at
                   type: TIMESTAMP
                   defaultValueComputed: CURRENT_TIMESTAMP

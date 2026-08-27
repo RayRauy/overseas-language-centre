@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 @Component
 @RequiredArgsConstructor
-public class UserValidator {
+public class AuthUserValidator {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
