@@ -1,0 +1,11 @@
+services:
+  redis:
+    image: redis
+    container_name: my-redis
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=passwordRedis
+volumes:
+  data:
+

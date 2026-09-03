@@ -20,6 +20,6 @@ public class StringNormalizer {
     }
 
     public String normalizeLower(String value){
-        return value == null ? null : value.toLowerCase(Locale.ROOT);
+        return value == null ? null : value.toLowerCase(Locale.ROOT).trim();
     }
 }

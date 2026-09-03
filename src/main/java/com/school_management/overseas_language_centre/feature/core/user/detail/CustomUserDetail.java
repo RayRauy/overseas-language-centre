@@ -9,32 +9,39 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@RequiredArgsConstructor
 public class CustomUserDetail implements UserDetails{
     private final User user;
+    private final Collection<? extends GrantedAuthority> authorities;
+    public CustomUserDetail(
+            User user,
+            Collection<? extends GrantedAuthority> authorities
+    ) {
+        this.user = user;
+        this.authorities = authorities;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
-        // Role authorities
-        authorities.addAll(user.getRoles()
-                .stream()
-                .map(role -> new
-                        SimpleGrantedAuthority("ROLE_"+ role.getName())
-                )
-                .toList()
-        );
-
-        // Permission authorities
-        authorities.addAll(user.getRoles()
-                .stream()
-                .flatMap(role -> role.getPermissions().stream())
-                .map(permission -> new
-                        SimpleGrantedAuthority(permission.getName())
-                )
-                .toList()
-        );
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+//
+//        // Role authorities
+//        authorities.addAll(user.getRoles()
+//                .stream()
+//                .map(role -> new
+//                        SimpleGrantedAuthority("ROLE_"+ role.getName())
+//                )
+//                .toList()
+//        );
+//
+//        // Permission authorities
+//        authorities.addAll(user.getRoles()
+//                .stream()
+//                .flatMap(role -> role.getPermissions().stream())
+//                .map(permission -> new
+//                        SimpleGrantedAuthority(permission.getName())
+//                )
+//                .toList()
+//        );
         return authorities;
     }
 

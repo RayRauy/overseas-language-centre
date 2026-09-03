@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,6 +47,7 @@ public class UserController {
         );
     }
 
+    @PreAuthorize("hasAuthority('USER_CREATE')")
     @PostMapping
     public ResponseEntity<BaseApi<UserResponse>> create(@Valid @RequestBody UserRequest request) {
         UserResponse user = userService.create(request);
@@ -57,7 +59,7 @@ public class UserController {
         );
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     public ResponseEntity<BaseApi<UserResponse>> updateById(@PathVariable Long id, @Valid @RequestBody UserRequest request) {
         UserResponse user = userService.updateById(id, request);
         return ResponseEntity.ok(

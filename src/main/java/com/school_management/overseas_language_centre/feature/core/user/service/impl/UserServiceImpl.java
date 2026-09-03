@@ -3,6 +3,7 @@ package com.school_management.overseas_language_centre.feature.core.user.service
 import com.school_management.overseas_language_centre.entity.Role;
 import com.school_management.overseas_language_centre.entity.User;
 import com.school_management.overseas_language_centre.exceptions.ResourceNotFoundException;
+import com.school_management.overseas_language_centre.feature.core.role.repository.RoleRepository;
 import com.school_management.overseas_language_centre.feature.core.role.specifications.RoleSpecification;
 import com.school_management.overseas_language_centre.feature.core.user.dto.response.UserResponse;
 import com.school_management.overseas_language_centre.feature.core.user.dto.filter.UserFilter;
@@ -18,17 +19,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final UserMapper userMapper;
     private final UserValidator userValidator;
     private final UserRequestNormalizer userRequestNormalizer;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponse getById(Long id) {
@@ -62,7 +67,17 @@ public class UserServiceImpl implements UserService {
         userRequestNormalizer.normalize(request);
         userValidator.validateCreate(request);
 
+        // Encrypt the password
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
+
         User entity = userMapper.toEntity(request);
+        entity.setEnabled(true);
+
+        Role defaultRole = roleRepository.findByName("CASHIER")
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Role", "CASHIER")
+                );
+        entity.setRoles(Set.of(defaultRole));
         User save = userRepository.save(entity);
         return userMapper.toResponse(save);
     }
