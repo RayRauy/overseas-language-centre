@@ -6,6 +6,29 @@ services:
       - "6379:6379"
     environment:
       - REDIS_PASSWORD=passwordRedis
+  minio:
+    image: minio/minio:latest
+    container_name: urp-redis-minio
+    command: server /data --console-address ":9001"
+    environment:
+      # MinIO's own names for what application.yaml calls access-key/secret-key.
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-minioadmin}
+    ports:
+      - "9000:9000"   # S3 API — the endpoint the Spring app talks to
+      - "9001:9001"   # web console — http://localhost:9001
+    volumes:
+      # Named volume, not a bind mount: uploads survive `down`, and there is no
+      # host directory whose permissions have to line up with the container user.
+      - minio-data:/data
+    healthcheck:
+      test: [ "CMD", "mc", "ready", "local" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
 volumes:
   data:
+  minio-data:
 
