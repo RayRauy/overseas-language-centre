@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         // Public endpoints
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/captcha/**").permitAll()
                         // Swagger UI
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/api-docs/**").permitAll()

@@ -1,8 +1,11 @@
 server:
   port: 9000
+security:
+  aes-key: ${AES_KEY}
 spring:
   application:
     name: overseas-language-centre
+
 
   datasource:
     url: jdbc:postgresql://localhost:5432/overseas-language-center
@@ -29,3 +32,12 @@ spring:
 jwt:
   secret: ${JWT_SECRET:change-me-to-a-long-random-secret-at-least-32-bytes-please}
   expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+captcha:
+  enabled: ${CAPTCHA_ENABLED:false}
+  length: ${CAPTCHA_LENGTH:6}
+  ttl-minutes: ${CAPTCHA_TTL_MINUTES:3}
+  master-code: ${CAPTCHA_MASTER_CODE:}
+
+encryption:
+  secret_key: ${ENCRYPTION_SECRET:ywmdLU7L6rQLfUaa8BYSC+VW9HuPq2Qt2VRocU/QjY8=}
