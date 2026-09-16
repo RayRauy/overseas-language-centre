@@ -25,4 +25,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+
+    @Column(name = "profile_image_key")
+    private String profileImageKey;
 }

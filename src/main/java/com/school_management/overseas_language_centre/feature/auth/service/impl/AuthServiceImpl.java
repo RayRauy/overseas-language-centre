@@ -18,18 +18,16 @@ import static io.micrometer.common.util.StringUtils.isBlank;
 public class AuthServiceImpl implements AuthService {
     private final TokenServiceImpl tokenService;
     private final AuthUserValidator authUserValidator;
-    private final CaptchaServiceImpl captchaService;
-    private final CaptchaProperties captchaProperties;
 
     @Override
     public AuthResponse login(LoginRequest request) {
-        if (captchaProperties.isEnabled()) {
-            captchaService.validate(
-                    request.getCaptchaId(),
-                    request.getCaptchaData()
-            );
-        }
-        User user = authUserValidator.validateLoginCredentials(request.getUsername(), request.getPassword());
+
+        User user = authUserValidator.validateLoginCredentials(
+                request.getUsername(),
+                request.getPassword(),
+                request.getCaptchaId(),
+                request.getCaptchaData()
+        );
 
         return tokenService.issue(user);
     }

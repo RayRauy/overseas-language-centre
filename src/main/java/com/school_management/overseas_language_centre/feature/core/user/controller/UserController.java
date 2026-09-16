@@ -12,9 +12,11 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -93,4 +95,18 @@ public class UserController {
                 )
         );
     }
+
+    @PostMapping(value = "/{id}/profile-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<BaseApi<UserResponse>> uploadProfileImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        UserResponse response = userService.uploadProfileImage(id, file);
+
+        return ResponseEntity.ok(
+                BaseApi.success(
+                        "Image Upload Success",
+                        response
+                )
+        );
+
+    }
+
 }

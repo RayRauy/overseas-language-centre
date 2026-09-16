@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-profile-image-key-to-users
+      author: your-name
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: profile_image_key
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: true

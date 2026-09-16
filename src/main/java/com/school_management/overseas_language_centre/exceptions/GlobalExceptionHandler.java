@@ -81,14 +81,14 @@ public class GlobalExceptionHandler {
                 .body(error);
     }
 
-//    @ExceptionHandler(ValidationException.class)
-//    public ResponseEntity<BaseError> handleValidationException(ValidationException ex) {
-//        BaseError error = BaseError.of(
-//                HttpStatus.BAD_REQUEST.value(),
-//                "Validation failed",
-//                ex.getMessage());
-//        return ResponseEntity
-//                .badRequest()
-//                .body(error);
-//    }
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<BaseError> handleValidationException(ValidationException ex) {
+        BaseError error = BaseError.of(
+                HttpStatus.BAD_REQUEST.value(),
+                "Validation failed",
+                ex.getMessage());
+        return ResponseEntity
+                .badRequest()
+                .body(error);
+    }
 }
