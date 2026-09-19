@@ -12,7 +12,7 @@ public class MinioProperties {
     private String accessKey = "minioadmin";
     private String secretKey = "minioadmin";
     private String bucket = "urp-redis";
-    private int maxSizeMb = 5;
+    private int maxSizeMb = 100;
     private boolean createBucketIfMissing = true;
 
     /** Endpoint without trailing slashes, so keys can be appended safely. */

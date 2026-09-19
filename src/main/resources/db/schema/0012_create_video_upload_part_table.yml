@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-video-upload-part-table
+      author: school-management
+      changes:
+        - createTable:
+            tableName: video_upload_part
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: upload_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: part_number
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: etag
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+        - addUniqueConstraint:
+            tableName: video_upload_part
+            columnNames: upload_id, part_number
+            constraintName: uk_video_upload_part
+
+        - addForeignKeyConstraint:
+            baseTableName: video_upload_part
+            baseColumnNames: upload_id
+            referencedTableName: video_upload
+            referencedColumnNames: upload_id
+            constraintName: fk_video_upload_part_upload
+            onDelete: CASCADE

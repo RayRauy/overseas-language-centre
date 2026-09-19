@@ -1,10 +1,7 @@
 package com.school_management.overseas_language_centre.config;
 
 import com.school_management.overseas_language_centre.property.MinioProperties;
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.SetBucketPolicyArgs;
+import io.minio.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -91,5 +88,16 @@ public class MinioConfig {
                 log.warn("Could not verify/create MinIO bucket '{}': {}", bucket, e.getMessage());
             }
         };
+    }
+
+    @Bean
+    public MinioAsyncClient minioAsyncClient() {
+        return MinioAsyncClient.builder()
+                .endpoint(minioProperties.getEndpoint())
+                .credentials(
+                        minioProperties.getAccessKey(),
+                        minioProperties.getSecretKey()
+                )
+                .build();
     }
 }

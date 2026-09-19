@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.feature.core;
+package com.school_management.overseas_language_centre.feature.core.test;
 
 import org.springframework.web.multipart.MultipartFile;
 

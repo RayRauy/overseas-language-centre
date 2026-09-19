@@ -6,6 +6,10 @@ spring:
   application:
     name: overseas-language-centre
 
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 
   datasource:
     url: jdbc:postgresql://localhost:5432/overseas-language-center
@@ -38,7 +42,7 @@ minio:
   access-key: ${MINIO_ACCESS_KEY:minioadmin}
   secret-key: ${MINIO_SECRET_KEY:minioadmin}
   bucket: ${MINIO_BUCKET:urp-redis}
-  max-size-mb: ${MINIO_MAX_SIZE_MB:5}
+  max-size-mb: ${MINIO_MAX_SIZE_MB:100}
   create-bucket-if-missing: ${MINIO_CREATE_BUCKET:true}
 
 captcha:
