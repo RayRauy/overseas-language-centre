@@ -19,3 +19,5 @@ databaseChangeLog:
       file: db/schema/0011_create_video_upload_table.yml
   - include:
       file: db/schema/0012_create_video_upload_part_table.yml
+  - include:
+      file: db/schema/0013_create_otp_table.yml

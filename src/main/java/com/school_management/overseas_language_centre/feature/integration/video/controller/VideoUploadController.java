@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.feature.core.test;
+package com.school_management.overseas_language_centre.feature.integration.video.controller;
 
 import com.school_management.overseas_language_centre.feature.integration.fileStorage.FileStorageService;
 import com.school_management.overseas_language_centre.feature.integration.video.dto.response.UploadPartResponse;

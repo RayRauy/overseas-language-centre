@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-otp-table
+      author: jpa
+      changes:
+        - createTable:
+            tableName: otp
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: INT
+                  constraints:
+                    nullable: false
+                    unique: true
+                    foreignKeyName: fk_otp_user
+                    references: users(id)
+              - column:
+                  name: otp_encrypted
+                  type: VARCHAR(512)
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP
+              - column:
+                  name: sent_count
+                  type: INT
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_sent_at
+                  type: TIMESTAMP
+              - column:
+                  name: verified
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP

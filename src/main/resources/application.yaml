@@ -33,6 +33,21 @@ spring:
       password:
       timeout: 2s
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jkray2005@gmail.com
+    password: jjit wjxn ceru aiyd
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
 jwt:
   secret: ${JWT_SECRET:change-me-to-a-long-random-secret-at-least-32-bytes-please}
   expiration-ms: ${JWT_EXPIRATION_MS:86400000}
@@ -53,3 +68,9 @@ captcha:
 
 encryption:
   secret_key: ${ENCRYPTION_SECRET:ywmdLU7L6rQLfUaa8BYSC+VW9HuPq2Qt2VRocU/QjY8=}
+
+otp:
+  secretKey: ${OTP_SECRET:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=}
+  ttl-minutes: ${OTP_TTL_MINUTES:10}
+  max-send-count: ${OTP_MAX_SEND_COUNT:5}
+  cooldown-minutes: ${OTP_COOLDOWN_MINUTES:5}
