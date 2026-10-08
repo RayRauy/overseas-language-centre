@@ -3,6 +3,10 @@ package com.school_management.overseas_language_centre.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,6 +21,8 @@ public class User {
     private String nickname;
     private Boolean enabled;
     private String activeTokenId;
+    private LocalDateTime deletedAt;
+    private LocalDateTime updatedAt;
 
     @ManyToMany
     @JoinTable(
@@ -28,4 +34,7 @@ public class User {
 
     @Column(name = "profile_image_key")
     private String profileImageKey;
+
+    @OneToMany(mappedBy = "user")
+    private List<OtpNotUnique> otps = new ArrayList<>();
 }

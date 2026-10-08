@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.feature.core.otp.dto.request;
+package com.school_management.overseas_language_centre.feature.otp_not_unique.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

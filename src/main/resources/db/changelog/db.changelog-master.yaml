@@ -21,3 +21,11 @@ databaseChangeLog:
       file: db/schema/0012_create_video_upload_part_table.yml
   - include:
       file: db/schema/0013_create_otp_table.yml
+  - include:
+      file: db/schema/0014_create_otp_table_user_unique.yml
+  - include:
+      file: db/schema/0015_create_otp_table_user_not_unique.yml
+  - include:
+      file: db/schema/0016_drop_tables_otp_unique_not_unique.yml
+  - include:
+      file: db/schema/0017_add_back_not_unique.yml

@@ -1,9 +1,9 @@
-package com.school_management.overseas_language_centre.feature.core.otp.controller;
+package com.school_management.overseas_language_centre.feature.otp_not_unique.controller;
 
-import com.school_management.overseas_language_centre.feature.core.otp.dto.request.ResetPasswordRequest;
-import com.school_management.overseas_language_centre.feature.core.otp.dto.request.SendOtpRequest;
-import com.school_management.overseas_language_centre.feature.core.otp.dto.request.VerifyOtpRequest;
-import com.school_management.overseas_language_centre.feature.core.otp.service.OtpService;
+import com.school_management.overseas_language_centre.feature.otp_not_unique.dto.request.ResetPasswordRequest;
+import com.school_management.overseas_language_centre.feature.otp_not_unique.dto.request.SendOtpRequest;
+import com.school_management.overseas_language_centre.feature.otp_not_unique.dto.request.VerifyOtpRequest;
+import com.school_management.overseas_language_centre.feature.otp_not_unique.service.OtpServiceNotUnique;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/otp")
+@RequestMapping("/api/otp/not-unique")
 @RequiredArgsConstructor
-public class OtpController {
-    private final OtpService otpService;
+public class OtpNotUniqueController {
+    private final OtpServiceNotUnique otpService;
 
     @PostMapping("/send")
     public ResponseEntity<?> sendOtp(@Valid @RequestBody SendOtpRequest sendOtpRequest){

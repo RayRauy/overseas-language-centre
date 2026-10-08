@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/captcha/**").permitAll()
                         .requestMatchers("/api/otp/**").permitAll()
+                        .requestMatchers("/api/otp/not-unique/**").permitAll()
                         .requestMatchers("/api/testing-image/**").permitAll()
                         // Swagger UI
                         .requestMatchers("/swagger-ui/**").permitAll()

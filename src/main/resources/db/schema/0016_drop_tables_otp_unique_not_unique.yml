@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0016-drop-tables-otp-unique-not-unique
+      author: Hout
+      changes:
+        - dropTable:
+            tableName: otp_unique
+        - dropTable:
+            tableName: otp_not_unique
